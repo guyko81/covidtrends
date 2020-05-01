@@ -425,10 +425,10 @@ let app = new Vue({
             region = renames[region];
           }
 
-          const cases = arr.map((e,i,a) => e >= this.minCasesInCountry ? e : NaN);
+          const cases = arr.map(e => e >= this.minCasesInCountry ? e : NaN);
           covidData.push({
             country: region,
-            cases: cases.map((e,i) => i),
+            cases,
             slope: slope.map((e,i) => arr[i] >= this.minCasesInCountry ? e : NaN),
             maxCases: this.myMax(...cases)
           });
@@ -720,7 +720,7 @@ let app = new Vue({
 
       // draws grey lines (line plot for each location)
       let trace1 = this.filteredCovidData.map((e,i) => ({
-        x: e.cases.slice(0, this.day),
+        x: Array.apply(null, Array(i)).map(function (x, j) { return j }),//e.cases.slice(0, this.day),
         y: e.slope.slice(0, this.day),
         name: e.country,
         text: this.dates.map(date => e.country + '<br>' + this.formatDate(date) ),
