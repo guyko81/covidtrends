@@ -425,10 +425,10 @@ let app = new Vue({
             region = renames[region];
           }
 
-          const cases = arr.map(e => e >= this.minCasesInCountry ? e : NaN);
+          const cases = arr.map((e,i,a) => e >= this.minCasesInCountry ? e : NaN);
           covidData.push({
             country: region,
-            cases,
+            cases: i,
             slope: slope.map((e,i) => arr[i] >= this.minCasesInCountry ? e : NaN),
             maxCases: this.myMax(...cases)
           });
